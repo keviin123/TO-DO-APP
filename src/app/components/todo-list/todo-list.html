@@ -1,1 +1,33 @@
-<p>todo-list works!</p>
+<li
+  *ngFor="let todo of todos()"
+  class="list-group-item d-flex justify-content-between align-items-start"
+>
+  <div class="d-flex align-items-start gap-2">
+    <input
+      type="checkbox"
+      class="form-check-input mt-1"
+      [checked]="todo.completed"
+      (change)="todoService.toggleTodo(todo.id)"
+    />
+
+    <div>
+      <div
+        [class.text-decoration-line-through]="todo.completed"
+        class="fw-medium"
+      >
+        {{ todo.title }}
+      </div>
+
+      <small class="text-muted">
+        Inicio: {{ todo.startDate }}
+      </small>
+    </div>
+  </div>
+
+  <span
+    class="badge align-self-center"
+    [ngClass]="todo.completed ? 'bg-success' : 'bg-warning text-dark'"
+  >
+    {{ todo.completed ? 'Completado' : 'Pendiente' }}
+  </span>
+</li>

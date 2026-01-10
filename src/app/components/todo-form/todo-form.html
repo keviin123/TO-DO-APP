@@ -1,1 +1,21 @@
-<p>todo-form works!</p>
+<form class="card card-body mb-3" [formGroup]="form" (ngSubmit)="submit()">
+  <div class="mb-2">
+    <label class="form-label"> Agg Tarea</label>
+    <input class="form-control" placeholder="Ej. Programar" formControlName="title" />
+    <small class="text-danger" *ngIf="form.get('title')?.touched && form.get('title')?.invalid">
+      El título es obligatorio (mínimo 3 caracteres).
+    </small>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Fecha de inicio</label>
+    <input type="date" class="form-control" formControlName="startDate" />
+    <small class="text-danger" *ngIf="form.get('startDate')?.touched && form.get('startDate')?.invalid">
+      La fecha de inicio es obligatoria.
+    </small>
+  </div>
+
+  <button class="btn btn-primary w-100" type="submit">
+    Agregar
+  </button>
+</form>
