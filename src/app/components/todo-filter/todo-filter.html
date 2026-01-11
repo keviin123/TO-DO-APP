@@ -1,1 +1,17 @@
-<p>todo-filter works!</p>
+<div class="mb-3">
+  <input
+    type="text"
+    class="form-control"
+    placeholder="Buscar tarea..."
+    (input)="onSearchChange($event)"
+  />
+</div>
+
+<div class="btn-group mb-3 w-100">
+  <button class="btn btn-outline-secondary" (click)="setAll()">Todos</button>
+  <button class="btn btn-outline-warning" (click)="setPending()">Pendientes</button>
+  <button class="btn btn-outline-success" (click)="setCompleted()">Completados</button>
+  <button class="btn btn-outline-primary" (click)="setFavorites()">
+    Favoritos
+  </button>
+</div>

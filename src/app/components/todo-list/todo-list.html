@@ -1,33 +1,85 @@
-<li
-  *ngFor="let todo of todos()"
-  class="list-group-item d-flex justify-content-between align-items-start"
->
-  <div class="d-flex align-items-start gap-2">
-    <input
-      type="checkbox"
-      class="form-check-input mt-1"
-      [checked]="todo.completed"
-      (change)="todoService.toggleTodo(todo.id)"
-    />
-
-    <div>
-      <div
-        [class.text-decoration-line-through]="todo.completed"
-        class="fw-medium"
-      >
-        {{ todo.title }}
-      </div>
-
-      <small class="text-muted">
-        Inicio: {{ todo.startDate }}
-      </small>
-    </div>
-  </div>
-
-  <span
-    class="badge align-self-center"
-    [ngClass]="todo.completed ? 'bg-success' : 'bg-warning text-dark'"
+<ul class="list-group mb-3">
+  <li
+    *ngFor="let todo of todos()"
+    class="list-group-item d-flex justify-content-between align-items-start"
   >
-    {{ todo.completed ? 'Completado' : 'Pendiente' }}
-  </span>
-</li>
+    <div class="d-flex align-items-start gap-2 w-100">
+      <input
+        type="checkbox"
+        class="form-check-input mt-1"
+        [checked]="todo.completed"
+        (change)="todoService.toggleTodo(todo.id)"
+      />
+
+      <div class="w-100">
+        <!-- VISTA -->
+        <div *ngIf="editingId !== todo.id; else editMode">
+          <div class="d-flex justify-content-between align-items-start">
+            <div>
+              <div class="fw-medium" [class.text-decoration-line-through]="todo.completed">
+                {{ todo.title }}
+              </div>
+              <small class="text-muted">Inicio: {{ todo.startDate }}</small>
+            </div>
+
+            <div class="d-flex gap-2 align-items-center">
+              <!-- boton de Favorito -->
+              <button
+                type="button"
+                class="btn btn-sm btn-outline-warning"
+                (click)="todoService.toggleFavorite(todo.id)"
+                [attr.aria-label]="todo.favorite ? 'Quitar de favoritos' : 'Marcar como favorito'"
+                title="Favorito"
+              >
+                <i class="bi" [ngClass]="todo.favorite ? 'bi-star-fill' : 'bi-star'"></i>
+              </button>
+
+              <!-- Editar -->
+              <button
+                class="btn btn-sm btn-outline-primary"
+                type="button"
+                (click)="startEdit(todo)"
+              >
+                Editar
+              </button>
+
+              <!-- Estado -->
+              <span
+                class="badge align-self-center"
+                [ngClass]="todo.completed ? 'bg-success' : 'bg-warning text-dark'"
+              >
+                {{ todo.completed ? 'Completado' : 'Pendiente' }}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- EDICIÓN -->
+        <ng-template #editMode>
+          <div class="d-flex flex-column gap-2">
+            <input class="form-control" [(ngModel)]="editTitle" placeholder="Título" />
+
+            <input type="date" class="form-control" [(ngModel)]="editStartDate" />
+
+            <div class="d-flex gap-2">
+              <button class="btn btn-sm btn-primary" type="button" (click)="saveEdit()">
+                Guardar
+              </button>
+              <button class="btn btn-sm btn-outline-secondary" type="button" (click)="cancelEdit()">
+                Cancelar
+              </button>
+            </div>
+
+            <small class="text-muted">
+              Reglas: título mínimo 3 caracteres y fecha obligatoria.
+            </small>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </li>
+</ul>
+
+<div *ngIf="todos().length === 0" class="text-muted">
+  No hay tareas aún.
+</div>

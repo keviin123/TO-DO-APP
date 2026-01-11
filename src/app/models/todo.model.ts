@@ -3,4 +3,5 @@ export interface Todo {
   title: string;
   startDate: string;
   completed: boolean;
+  favorite: boolean;
 }
