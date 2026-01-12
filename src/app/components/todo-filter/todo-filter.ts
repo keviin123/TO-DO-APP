@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TodoService } from '../../services/todo.service';
 
@@ -10,7 +10,10 @@ import { TodoService } from '../../services/todo.service';
   styleUrls: ['./todo-filter.scss'],
 })
 export class TodoFilterComponent {
-  constructor(private todoService: TodoService) {}
+  public todoService = inject(TodoService);
+
+  // ✅ Ahora sí, ya existe todoService cuando se inicializa esta propiedad
+  filter = this.todoService.getFilter();
 
   setAll() {
     this.todoService.setFilter('all');
@@ -22,6 +25,10 @@ export class TodoFilterComponent {
 
   setCompleted() {
     this.todoService.setFilter('completed');
+  }
+
+  setFavorites() {
+    this.todoService.setFilter('favorites');
   }
 
   onSearchChange(event: Event) {

@@ -1,1 +1,160 @@
-/* You can add global styles to this file, and also import other style files */
+/* ===== Base UI ===== */
+:root {
+  --app-bg: #f6f7fb;
+  --card-bg: #ffffff;
+  --text: #0f172a;
+  --muted: #64748b;
+  --border: #e5e7eb;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  --radius: 14px;
+}
+
+/* Fondo general */
+body {
+  background: var(--app-bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+/* Contenedor */
+.container {
+  max-width: 980px;
+}
+
+/* Cards */
+.card,
+.list-group-item {
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius) !important;
+}
+
+.card {
+  background: var(--card-bg);
+  box-shadow: var(--shadow);
+}
+
+/* Inputs */
+.form-control {
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}
+
+.form-control:focus {
+  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.15);
+  border-color: rgba(13, 110, 253, 0.45);
+}
+
+/* Botones */
+.btn {
+  border-radius: 12px;
+}
+
+/* Badges */
+.badge {
+  border-radius: 999px;
+  padding: 0.5rem 0.7rem;
+  font-weight: 600;
+}
+
+.text-muted,
+small {
+  color: var(--muted) !important;
+}
+
+body.dark {
+  --app-bg: #0b1220;
+  --card-bg: rgba(255, 255, 255, 0.06);
+  --text: #e5e7eb;
+  --muted: rgba(229, 231, 235, 0.7);
+  --border: rgba(255, 255, 255, 0.12);
+  --shadow: 0 18px 45px rgba(0, 0, 0, 0.35);
+}
+
+body.dark .card,
+body.dark .list-group-item {
+  backdrop-filter: blur(10px);
+}
+
+body.dark .form-control {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+}
+
+body.dark .form-control::placeholder {
+  color: rgba(229, 231, 235, 0.55);
+}
+
+.theme-switch {
+  position: relative;
+}
+
+.theme-switch .form-check-input {
+  width: 72px;
+  height: 36px;
+  cursor: pointer;
+  background-color: #e5e7eb;
+  border: none;
+  box-shadow: inset 0 0 0 2px #d1d5db;
+  position: relative;
+}
+
+/* Thumb */
+.theme-switch .form-check-input::before {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 28px;
+  height: 28px;
+  background: #facc15;
+  border-radius: 50%;
+  transition: transform 0.35s ease, background 0.35s ease;
+}
+
+/* Checked */
+.theme-switch .form-check-input:checked {
+  background-color: #111827;
+}
+
+.theme-switch .form-check-input:checked::before {
+  transform: translateX(36px);
+  background: #9ca3af;
+}
+
+/* Label con iconos */
+.theme-switch .form-check-label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 12px;
+  pointer-events: none;
+}
+
+.theme-switch .icon {
+  font-size: 16px;
+}
+
+.theme-switch .sun {
+  color: #f59e0b;
+}
+
+.theme-switch .moon {
+  color: #e5e7eb;
+}
+
+body.dark .theme-switch .sun {
+  opacity: 0.3;
+}
+
+body.dark .theme-switch .moon {
+  opacity: 1;
+}
+
+@media (max-width: 576px) {
+  .container {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+}

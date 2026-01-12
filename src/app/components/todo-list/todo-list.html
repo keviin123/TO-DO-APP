@@ -45,14 +45,14 @@
 
               <!-- Estado -->
               <span
-                class="badge align-self-center"
-                [ngClass]="todo.completed ? 'bg-success' : 'bg-warning text-dark'"
+              class="badge align-self-center todo-status"
+              [ngClass]="todo.completed ? 'bg-success' : 'bg-warning text-dark'"
               >
-                {{ todo.completed ? 'Completado' : 'Pendiente' }}
-              </span>
+              {{ todo.completed ? 'Completado' : 'Pendiente' }}
+            </span>
             </div>
           </div>
-        </div>
+        </div>      
 
         <!-- EDICIÓN -->
         <ng-template #editMode>
