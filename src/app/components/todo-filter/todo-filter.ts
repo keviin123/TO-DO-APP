@@ -28,8 +28,4 @@ export class TodoFilterComponent {
     const value = (event.target as HTMLInputElement).value;
     this.todoService.setSearch(value);
   }
-  setFavorites() {
-  this.todoService.setFilter('favorites');
-}
-
 }
