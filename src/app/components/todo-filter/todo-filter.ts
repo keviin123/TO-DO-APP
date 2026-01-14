@@ -12,7 +12,6 @@ import { TodoService } from '../../services/todo.service';
 export class TodoFilterComponent {
   public todoService = inject(TodoService);
 
-  // ✅ Ahora sí, ya existe todoService cuando se inicializa esta propiedad
   filter = this.todoService.getFilter();
 
   setAll() {

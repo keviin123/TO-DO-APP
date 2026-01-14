@@ -1,0 +1,45 @@
+<div class="stats-grid">
+  <!-- Pendientes -->
+  <div class="stat-card">
+    <div class="stat-chip chip-pending">
+      <i class="bi bi-hourglass-split"></i>
+      <span>Pendientes</span>
+    </div>
+
+    <div class="stat-value">{{ todoService.pendingCount() }}</div>
+    <div class="stat-subtitle">Tareas pendientes</div>
+  </div>
+
+  <!-- Completadas -->
+  <div class="stat-card">
+    <div class="stat-chip chip-completed">
+      <i class="bi bi-check2-circle"></i>
+      <span>Completadas</span>
+    </div>
+
+    <div class="stat-value">{{ todoService.completedCount() }}</div>
+    <div class="stat-subtitle">Tareas completadas</div>
+  </div>
+
+  <!-- Favoritas -->
+  <div class="stat-card">
+    <div class="stat-chip chip-favorite">
+      <i class="bi bi-star-fill"></i>
+      <span>Favoritas</span>
+    </div>
+
+    <div class="stat-value">{{ todoService.favoritesCount() }}</div>
+    <div class="stat-subtitle">Tareas favoritas</div>
+  </div>
+
+  <!-- Progreso -->
+  <div class="stat-card">
+    <div class="stat-chip chip-progress">
+      <i class="bi bi-graph-up"></i>
+      <span>Progreso</span>
+    </div>
+
+    <div class="stat-value">{{ todoService.progressPercent() }}%</div>
+    <div class="stat-subtitle">Completado</div>
+  </div>
+</div>

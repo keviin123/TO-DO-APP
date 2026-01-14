@@ -3,70 +3,122 @@
     *ngFor="let todo of todos()"
     class="list-group-item d-flex justify-content-between align-items-start"
   >
-    <div class="d-flex align-items-start gap-2 w-100">
-      <input
-        type="checkbox"
-        class="form-check-input mt-1"
-        [checked]="todo.completed"
-        (change)="todoService.toggleTodo(todo.id)"
-      />
+    <div class="d-flex align-items-start gap-3 w-100">
+
+      <!-- CHECKBOX PERSONALIZADO -->
+      <div class="todo-check">
+        <input
+          type="checkbox"
+          class="todo-check-input"
+          [id]="'chk-' + todo.id"
+          [checked]="todo.completed"
+          (change)="todoService.toggleTodo(todo.id)"
+        />
+        <label
+          class="todo-check-label"
+          [for]="'chk-' + todo.id"
+        ></label>
+      </div>
 
       <div class="w-100">
         <!-- VISTA -->
         <div *ngIf="editingId !== todo.id; else editMode">
           <div class="d-flex justify-content-between align-items-start">
             <div>
-              <div class="fw-medium" [class.text-decoration-line-through]="todo.completed">
+              <div
+                class="fw-medium"
+                [class.text-decoration-line-through]="todo.completed"
+              >
                 {{ todo.title }}
               </div>
               <small class="text-muted">Inicio: {{ todo.startDate }}</small>
             </div>
 
             <div class="d-flex gap-2 align-items-center">
-              <!-- boton de Favorito -->
+              <!-- Favorito -->
               <button
                 type="button"
-                class="btn btn-sm btn-outline-warning"
+                class="btn btn-sm btn-outline-warning btn-icon"
                 (click)="todoService.toggleFavorite(todo.id)"
-                [attr.aria-label]="todo.favorite ? 'Quitar de favoritos' : 'Marcar como favorito'"
-                title="Favorito"
+                [attr.title]="todo.favorite ? 'Quitar favorito' : 'Marcar favorito'"
               >
-                <i class="bi" [ngClass]="todo.favorite ? 'bi-star-fill' : 'bi-star'"></i>
+                <i
+                  class="bi"
+                  [ngClass]="todo.favorite ? 'bi-star-fill' : 'bi-star'"
+                ></i>
               </button>
 
               <!-- Editar -->
               <button
-                class="btn btn-sm btn-outline-primary"
                 type="button"
+                class="btn btn-sm btn-outline-primary btn-icon"
                 (click)="startEdit(todo)"
+                title="Editar"
               >
-                Editar
+                <i class="bi bi-pencil"></i>
+              </button>
+
+              <!-- Eliminar -->
+              <button
+                type="button"
+                class="btn btn-sm btn-outline-danger btn-icon"
+                (click)="delete(todo.id)"
+                title="Eliminar"
+              >
+                <i class="bi bi-trash"></i>
               </button>
 
               <!-- Estado -->
               <span
-              class="badge align-self-center todo-status"
-              [ngClass]="todo.completed ? 'bg-success' : 'bg-warning text-dark'"
+                class="badge align-self-center todo-status"
+                [ngClass]="todo.completed ? 'bg-success' : 'bg-warning text-dark'"
               >
-              {{ todo.completed ? 'Completado' : 'Pendiente' }}
-            </span>
+                {{ todo.completed ? 'Completado' : 'Pendiente' }}
+              </span>
             </div>
           </div>
-        </div>      
+        </div>
 
         <!-- EDICIÓN -->
         <ng-template #editMode>
           <div class="d-flex flex-column gap-2">
-            <input class="form-control" [(ngModel)]="editTitle" placeholder="Título" />
+            <input
+              class="form-control"
+              [(ngModel)]="editTitle"
+              placeholder="Título"
+            />
 
-            <input type="date" class="form-control" [(ngModel)]="editStartDate" />
-
+            <input
+              type="date"
+              class="form-control"
+              [(ngModel)]="editStartDate"
+              #editDate
+              (click)="openDatePicker(editDate)"
+            />
+            
             <div class="d-flex gap-2">
-              <button class="btn btn-sm btn-primary" type="button" (click)="saveEdit()">
+              <button
+                class="btn btn-sm btn-primary"
+                type="button"
+                (click)="saveEdit()"
+              >
                 Guardar
               </button>
-              <button class="btn btn-sm btn-outline-secondary" type="button" (click)="cancelEdit()">
+
+              <button
+                class="btn btn-sm btn-outline-secondary"
+                type="button"
+                (click)="cancelEdit()"
+              >
                 Cancelar
+              </button>
+
+              <button
+                class="btn btn-sm btn-outline-danger ms-auto"
+                type="button"
+                (click)="delete(todo.id)"
+              >
+                Eliminar
               </button>
             </div>
 

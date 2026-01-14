@@ -14,7 +14,6 @@ export class TodoListComponent {
 
   todos: any;
 
-  // Estado de edición
   editingId: string | null = null;
   editTitle = '';
   editStartDate = '';
@@ -33,6 +32,20 @@ export class TodoListComponent {
     this.editingId = null;
     this.editTitle = '';
     this.editStartDate = '';
+  }
+
+  delete(todoId: string) {
+  const ok = confirm('¿Seguro que deseas eliminar esta tarea?');
+  if (!ok) return;
+  this.todoService.deleteTodo(todoId);
+  }
+
+  openDatePicker(input: HTMLInputElement) {
+    if (input.showPicker) {
+      input.showPicker();
+    } else {
+      input.focus();
+    }
   }
 
   saveEdit() {

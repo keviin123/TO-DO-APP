@@ -1,6 +1,6 @@
 <form class="card card-body mb-3" [formGroup]="form" (ngSubmit)="submit()">
   <div class="mb-2">
-    <label class="form-label"> Agg Tarea</label>
+    <label class="form-label"> Agregar Tarea</label>
     <input class="form-control" placeholder="Ej. Programar" formControlName="title" />
     <small class="text-danger" *ngIf="form.get('title')?.touched && form.get('title')?.invalid">
       El título es obligatorio (mínimo 3 caracteres).
@@ -9,7 +9,13 @@
 
   <div class="mb-3">
     <label class="form-label">Fecha de inicio</label>
-    <input type="date" class="form-control" formControlName="startDate" />
+    <input
+  type="date"
+  class="form-control"
+  formControlName="startDate"
+  #dateInput
+  (click)="openDatePicker(dateInput)"
+/>
     <small class="text-danger" *ngIf="form.get('startDate')?.touched && form.get('startDate')?.invalid">
       La fecha de inicio es obligatoria.
     </small>

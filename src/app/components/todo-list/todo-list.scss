@@ -2,15 +2,29 @@
   display: block;
 }
 
+/* ===== LISTA ===== */
+
 .list-group {
   border-radius: var(--radius);
 }
+.fw-medium {
+  color: var(--text);
+}
 
+body.dark .fw-medium {
+  color: #ffffff;
+  font-weight: 700;
+}
 .list-group-item {
   border: 1px solid var(--border) !important;
   border-radius: var(--radius) !important;
   margin-bottom: 10px;
   background: var(--card-bg);
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.list-group-item:hover {
+  border-color: rgba(59, 130, 246, 0.4);
 }
 
 .list-group-item:last-child {
@@ -20,6 +34,8 @@
 .fw-medium {
   font-weight: 700;
 }
+
+/* ===== ESTADO ===== */
 
 .todo-status {
   min-width: 110px;
@@ -32,3 +48,65 @@
   letter-spacing: 0.2px;
 }
 
+/* CHECKBOX OPCIÓN */
+
+.todo-check {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
+  margin-top: 15px;
+  position: relative;
+}
+
+.todo-check-input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.todo-check-label {
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 2px solid rgba(10, 10, 10, 0.95);
+  transition: all 0.2s ease;
+  z-index: 1;
+}
+
+/* Hover */
+.todo-check-input:hover + .todo-check-label {
+  border-color: rgba(59, 130, 246, 0.8);
+}
+
+/* Checked */
+.todo-check-input:checked + .todo-check-label {
+  background: rgba(34, 197, 94, 0.9);
+  border-color: rgba(34, 197, 94, 0.9);
+}
+
+/* Check icon */
+.todo-check-label::after {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 2px;
+  width: 6px;
+  height: 10px;
+  border-right: 2px solid transparent;
+  border-bottom: 2px solid transparent;
+  transform: rotate(45deg);
+  transition: all 0.2s ease;
+}
+
+.todo-check-input:checked + .todo-check-label::after {
+  border-right-color: #013f07;
+  border-bottom-color: #013f07;
+}
+
+/* Focus accesible */
+.todo-check-input:focus-visible + .todo-check-label {
+  outline: 2px solid rgba(59, 130, 246, 0.9);
+  outline-offset: 2px;
+}

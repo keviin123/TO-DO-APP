@@ -2,10 +2,50 @@
   display: block;
 }
 
+input.form-control {
+  background: var(--card-bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+input.form-control::placeholder {
+  color: var(--muted);
+}
+
+
+input.form-control:focus {
+  background: var(--card-bg);
+  color: var(--text);
+  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.15);
+}
+
+
 .btn-group .btn {
   font-weight: 600;
 }
 
-input.form-control {
-  background: #495057;
+
+.btn-group .btn.active {
+  color: #fff;
+}
+
+.btn-outline-secondary.active {
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+.btn-outline-warning.active {
+  background-color: #ffc107;
+  border-color: #ffc107;
+  color: #111;
+}
+
+.btn-outline-success.active {
+  background-color: #198754;
+  border-color: #198754;
+}
+
+.btn-outline-primary.active {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
 }

@@ -34,4 +34,11 @@ export class TodoFormComponent {
     this.todoService.addTodo(title, startDate);
     this.form.reset();
   }
+  openDatePicker(input: HTMLInputElement) {
+    if (input.showPicker) {
+      input.showPicker();
+    } else {
+      input.focus();
+    }
+  }
 }
