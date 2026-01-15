@@ -1,4 +1,4 @@
-/* ===== Base UI ===== */
+/*Base UI*/
 :root {
   /* Fondo claro ligeramente gris */
   --app-bg: #e9edf3;
@@ -59,19 +59,51 @@ body {
   border-color: rgba(13, 110, 253, 0.45);
 }
 
-/* Checkbox */
+/*CHECKBOX (borde visible + palomita verde)*/
 .form-check-input {
   width: 18px;
   height: 18px;
-  border-radius: 6px;
-  border: 2px solid rgba(15, 23, 42, 0.45);
+  border-radius: 8px;
+  border: 2px solid rgba(15, 23, 42, 0.75);
   background-color: #ffffff;
   cursor: pointer;
+
+  appearance: none;
+  -webkit-appearance: none;
+
+  display: inline-grid;
+  place-content: center;
 }
 
+/* Palomita (verde) */
+.form-check-input::after {
+  content: '';
+  width: 6px;
+  height: 10px;
+  transform: rotate(45deg);
+  border-right: 2px solid transparent;
+  border-bottom: 2px solid transparent;
+}
+
+/* Checked: fondo verde suave + borde verde + palomita verde */
 .form-check-input:checked {
-  background-color: #22c55e;
+  background-color: rgba(34, 197, 94, 0.18);
   border-color: #16a34a;
+}
+
+.form-check-input:checked::after {
+  border-right-color: #16a34a;
+  border-bottom-color: #16a34a;
+}
+
+/* Hover / focus */
+.form-check-input:hover {
+  border-color: rgba(15, 23, 42, 0.95);
+}
+
+.form-check-input:focus-visible {
+  outline: 2px solid rgba(59, 130, 246, 0.85);
+  outline-offset: 2px;
 }
 
 /* Botones */
@@ -90,6 +122,40 @@ body {
 .text-muted,
 small {
   color: var(--muted) !important;
+}
+
+/*SCROLL PANEL DERECHO*/
+
+.todo-right-panel {
+  /* Altura “tipo app” */
+  max-height: calc(100vh - 190px);
+  display: flex;
+  flex-direction: column;
+}
+
+/* El filtro arriba, la lista abajo con scroll */
+.todo-list-scroll {
+  flex: 1 1 auto;
+  min-height: 0; /* clave para que flex permita el scroll */
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+/* Scrollbar discreta */
+.todo-list-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+.todo-list-scroll::-webkit-scrollbar-thumb {
+  background: rgba(15, 23, 42, 0.18);
+  border-radius: 10px;
+}
+body.dark .todo-list-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.18);
+}
+@media (min-width: 992px) {
+  .todo-right-panel {
+    max-height: calc(100vh - 300px);
+  }
 }
 /* MODO OSCURO */
 body.dark {
@@ -121,15 +187,20 @@ body.dark .form-control::placeholder {
 /* Checkbox dark */
 body.dark .form-check-input {
   background-color: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.5);
+  border-color: rgba(255, 255, 255, 0.7);
 }
 
 body.dark .form-check-input:checked {
-  background-color: #22c55e;
+  background-color: rgba(34, 197, 94, 0.18);
   border-color: #16a34a;
 }
 
-/* Tema SWITCH */
+body.dark .form-check-input:checked::after {
+  border-right-color: #22c55e;
+  border-bottom-color: #22c55e;
+}
+
+/* TEMA SWITCH*/
 .theme-switch {
   position: relative;
 }
@@ -142,6 +213,9 @@ body.dark .form-check-input:checked {
   border: none;
   box-shadow: inset 0 0 0 2px #d1d5db;
   position: relative;
+
+  appearance: none;
+  -webkit-appearance: none;
 }
 
 /* Thumb */
@@ -155,6 +229,10 @@ body.dark .form-check-input:checked {
   background: #facc15;
   border-radius: 50%;
   transition: transform 0.35s ease, background 0.35s ease;
+}
+
+.theme-switch .form-check-input::after {
+  content: none;
 }
 
 /* Checked */
@@ -198,9 +276,13 @@ body.dark .theme-switch .moon {
   opacity: 1;
 }
 
+/* Responsive */
 @media (max-width: 576px) {
   .container {
     padding-left: 12px;
     padding-right: 12px;
+  }
+  .todo-right-panel {
+    max-height: none;
   }
 }

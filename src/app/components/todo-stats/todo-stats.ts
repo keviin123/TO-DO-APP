@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+// src/app/components/todo-stats/todo-stats.ts
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TodoService } from '../../services/todo.service';
 
@@ -10,5 +11,5 @@ import { TodoService } from '../../services/todo.service';
   styleUrls: ['./todo-stats.scss'],
 })
 export class TodoStatsComponent {
-  constructor(public todoService: TodoService) {}
+  public todoService = inject(TodoService);
 }

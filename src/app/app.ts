@@ -37,7 +37,7 @@ import { TodoStatsComponent } from './components/todo-stats/todo-stats';
         </header>
 
         <!-- GRID 2 columnas -->
-        <div class="row g-4 align-items-start">
+        <div class="row g-4 align-items-start app-grid">
           <!-- IZQUIERDA -->
           <div class="col-12 col-lg-5">
             <section class="card glass card-body p-4 mb-4">
@@ -51,15 +51,18 @@ import { TodoStatsComponent } from './components/todo-stats/todo-stats';
 
           <!-- DERECHA -->
           <div class="col-12 col-lg-7">
-            <section class="card glass card-body p-4">
+            <section class="card glass card-body p-4 todo-right-panel">
               <app-todo-filter></app-todo-filter>
-              <app-todo-list></app-todo-list>
+
+              <div class="todo-list-scroll">
+                <app-todo-list></app-todo-list>
+              </div>
             </section>
           </div>
         </div>
       </div>
     </div>
-  `
+  `,
 })
 export class App implements OnInit {
   private readonly THEME_KEY = 'theme';

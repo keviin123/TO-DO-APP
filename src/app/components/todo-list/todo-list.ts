@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+// src/app/components/todo-list/todo-list.ts
+import { Component, inject, Signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TodoService } from '../../services/todo.service';
+import { Todo } from '../../models/todo.model';
 
 @Component({
   selector: 'app-todo-list',
@@ -11,18 +13,16 @@ import { TodoService } from '../../services/todo.service';
   styleUrls: ['./todo-list.scss'],
 })
 export class TodoListComponent {
+  public todoService = inject(TodoService);
 
-  todos: any;
+  // getTodos() devuelve un computed => Signal<Todo[]>
+  todos: Signal<Todo[]> = this.todoService.getTodos();
 
   editingId: string | null = null;
   editTitle = '';
   editStartDate = '';
 
-  constructor(public todoService: TodoService) {
-    this.todos = this.todoService.getTodos();
-  }
-
-  startEdit(todo: any) {
+  startEdit(todo: Todo) {
     this.editingId = todo.id;
     this.editTitle = todo.title;
     this.editStartDate = todo.startDate;
@@ -35,17 +35,14 @@ export class TodoListComponent {
   }
 
   delete(todoId: string) {
-  const ok = confirm('¿Seguro que deseas eliminar esta tarea?');
-  if (!ok) return;
-  this.todoService.deleteTodo(todoId);
+    const ok = confirm('¿Seguro que deseas eliminar esta tarea?');
+    if (!ok) return;
+    this.todoService.deleteTodo(todoId);
   }
 
   openDatePicker(input: HTMLInputElement) {
-    if (input.showPicker) {
-      input.showPicker();
-    } else {
-      input.focus();
-    }
+    input.showPicker?.();
+    input.focus();
   }
 
   saveEdit() {

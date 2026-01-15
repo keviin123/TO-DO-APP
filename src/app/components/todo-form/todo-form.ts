@@ -1,7 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, ReactiveFormsModule, Validators, FormGroup } from '@angular/forms';
+import {
+  FormBuilder,
+  ReactiveFormsModule,
+  Validators,
+  FormGroup,
+  FormControl,
+} from '@angular/forms';
 import { TodoService } from '../../services/todo.service';
+
+interface TodoFormValue {
+  title: FormControl<string>;
+  startDate: FormControl<string>;
+}
 
 @Component({
   selector: 'app-todo-form',
@@ -11,17 +22,24 @@ import { TodoService } from '../../services/todo.service';
   styleUrls: ['./todo-form.scss'],
 })
 export class TodoFormComponent {
+  private readonly fb = inject(FormBuilder);
+  private readonly todoService = inject(TodoService);
 
-  form!: FormGroup;
+  // Form tipado (sin any)
+  form: FormGroup<TodoFormValue> = this.fb.group({
+    title: this.fb.nonNullable.control('', [
+      Validators.required,
+      Validators.minLength(3),
+    ]),
+    startDate: this.fb.nonNullable.control('', [Validators.required]),
+  });
 
-  constructor(
-    private fb: FormBuilder,
-    private todoService: TodoService
-  ) {
-    this.form = this.fb.group({
-      title: ['', [Validators.required, Validators.minLength(3)]],
-      startDate: ['', Validators.required],
-    });
+  openDatePicker(input: HTMLInputElement) {
+    if (typeof input.showPicker === 'function') {
+      input.showPicker();
+    } else {
+      input.focus();
+    }
   }
 
   submit(): void {
@@ -30,15 +48,10 @@ export class TodoFormComponent {
       return;
     }
 
-    const { title, startDate } = this.form.value;
+    const title = this.form.controls.title.value.trim();
+    const startDate = this.form.controls.startDate.value;
+
     this.todoService.addTodo(title, startDate);
     this.form.reset();
-  }
-  openDatePicker(input: HTMLInputElement) {
-    if (input.showPicker) {
-      input.showPicker();
-    } else {
-      input.focus();
-    }
   }
 }

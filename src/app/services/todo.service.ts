@@ -13,15 +13,15 @@ export class TodoService {
       const data = localStorage.getItem(this.STORAGE_KEY);
       if (!data) return [];
 
-      const parsed = JSON.parse(data) as any[];
+      const parsed = JSON.parse(data) as Partial<Todo>[];
 
       return parsed.map((t) => ({
-        id: t.id,
-        title: t.title,
-        startDate: t.startDate,
-        completed: !!t.completed,
-        favorite: !!t.favorite,
-      })) as Todo[];
+      id: String(t.id ?? ''),
+      title: String(t.title ?? ''),
+      startDate: String(t.startDate ?? ''),
+      completed: !!t.completed,
+      favorite: !!t.favorite,
+  })) as Todo[];
     } catch {
       return [];
     }
